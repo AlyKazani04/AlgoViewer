@@ -1,5 +1,8 @@
-# Prerequisites
-*.d
+# vscode
+.vscode/
+
+# build files
+build/
 
 # Compiled Object files
 *.slo
@@ -7,24 +10,10 @@
 *.o
 *.obj
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
 # Compiled Dynamic libraries
 *.so
 *.dll
 *.dylib
-
-# Fortran module files
-*.mod
-*.smod
 
 # Compiled Static libraries
 *.lai

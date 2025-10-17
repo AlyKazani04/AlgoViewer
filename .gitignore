@@ -1,8 +1,11 @@
-# vscode
+# VS Code files
 .vscode/
 
-# build files
+# Build files
 build/
+
+# ImGui Debug files
+*.ini
 
 # Compiled Object files
 *.slo

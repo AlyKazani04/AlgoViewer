@@ -8,6 +8,7 @@ add_compile_options(-fdiagnostics-color=always -g)
 set(SFML_ROOT "libs/SFML")
 set(IMGUI_ROOT "libs/ImGui")
 set(IMGUI_SFML_ROOT "libs/ImGui-SFML")
+set(SRC_ROOT "src")
 
 file(GLOB_RECURSE SOURCES "*.cpp")
 list(FILTER SOURCES EXCLUDE REGEX "CMakeFiles")
@@ -24,6 +25,7 @@ target_include_directories(AlgoViewer PRIVATE
     ${SFML_ROOT}/include
     ${IMGUI_ROOT}
     ${IMGUI_SFML_ROOT}
+    ${SRC_ROOT}/*hpp
 )
 
 target_link_directories(AlgoViewer PRIVATE

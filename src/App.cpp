@@ -1,9 +1,6 @@
 #include "App.hpp"
 
-Application::Application() : m_ui(&m_visualizer)
-{
-
-}
+Application::Application() : m_ui(&m_visualizer) {}
 
 void Application::run()
 {

@@ -1,5 +1,7 @@
 #include "Visualizer.hpp"
 
+Visualizer::Visualizer() : m_algorithm(nullptr) {}
+
 void Visualizer::draw(sf::RenderWindow& window) 
 {
     float barWidth = (window.getSize().x / 2) / static_cast<float>(m_array.size());
@@ -15,4 +17,9 @@ void Visualizer::draw(sf::RenderWindow& window)
 void Visualizer::setAlgorithm(Algorithm* algo)
 {
     m_algorithm = algo;
+}
+
+Visualizer::~Visualizer()
+{
+    delete m_algorithm;
 }

@@ -14,4 +14,5 @@ class UIManager
         
         UIManager(Visualizer* vis) : m_selectedAlgoIndex(0), m_isMenuOpen(true), visuals(vis) {}
         void showMenu();
+        // TODO: Add more UI functionalities like start, pause, reset buttons, and speed control
 };

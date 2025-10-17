@@ -10,7 +10,10 @@ class Visualizer
         Algorithm* m_algorithm;
         std::vector<int> m_array;
     public:
+        Visualizer();
+        // void update(); // TODO: Update the array
         void draw(sf::RenderWindow& window);
         void setAlgorithm(Algorithm* algo);
+        ~Visualizer();
 };
     

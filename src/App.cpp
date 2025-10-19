@@ -1,6 +1,6 @@
 #include "App.hpp"
 
-Application::Application() : m_ui(&m_visualizer) {}
+Application::Application(int initSize) : m_visualizer(initSize), m_ui(&m_visualizer) {}
 
 void Application::run()
 {
@@ -25,6 +25,7 @@ void Application::run()
         }
 
         ImGui::SFML::Update(window, deltaClock.restart());
+        m_visualizer.update();
         m_ui.showMenu();
 
         window.clear(sf::Color::Black);

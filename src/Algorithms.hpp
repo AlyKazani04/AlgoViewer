@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <algorithm>
 #include <vector>
 
@@ -6,7 +7,9 @@
 class Algorithm 
 {   
     public:
+        Algorithm() =default;
         // virtual void sort(std::vector<int>& array) = 0;  // TODO: Define sorting for each algorithm and make this virtual
+        virtual std::string getName() = 0;
         virtual ~Algorithm() = default;
 };
 
@@ -16,6 +19,7 @@ class BubbleSort : public Algorithm
     public:
         BubbleSort() =default;
         // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
+        std::string getName() override { return "Bubble Sort"; }
         ~BubbleSort() = default;
 };
 
@@ -25,6 +29,7 @@ class MergeSort : public Algorithm
     public:
         MergeSort() =default;
         // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
+        std::string getName() override { return "Merge Sort"; }
         ~MergeSort() = default;
 };
 
@@ -34,6 +39,7 @@ class SelectionSort : public Algorithm
     public:
         SelectionSort() =default;
         // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
+        std::string getName() override { return "Selection Sort"; }
         ~SelectionSort() = default;
 };
 
@@ -43,6 +49,7 @@ class InsertionSort : public Algorithm
     public:
         InsertionSort() =default;
         // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
+        std::string getName() override { return "Insertion Sort"; }
         ~InsertionSort() = default;
 };
 
@@ -52,5 +59,6 @@ class QuickSort : public Algorithm
     public:
         QuickSort() =default;
         // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
+        std::string getName() override { return "Quick Sort"; }
         ~QuickSort() = default;
 };

@@ -20,6 +20,10 @@ add_executable(AlgoViewer
     ${IMGUI_SOURCES}
     ${IMGUI_SFML_SOURCES}
 )
+set_target_properties(AlgoViewer
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}"
+)
 
 target_include_directories(AlgoViewer PRIVATE
     ${SFML_ROOT}/include

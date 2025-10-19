@@ -3,8 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include "src/App.hpp"
 
-void main()
+int main()
 {
     Application app;
     app.run();
+    return 0;
 }

@@ -5,7 +5,6 @@ Application::Application() : m_ui(&m_visualizer) {}
 void Application::run()
 {
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "Sorting Visualizer");
-    ImGui::SFML::Init(window);
 
     sf::Clock deltaClock;
     if(!ImGui::SFML::Init(window))

@@ -16,10 +16,17 @@ void Visualizer::draw(sf::RenderWindow& window)
 
 void Visualizer::setAlgorithm(Algorithm* algo)
 {
+    if(m_algorithm != nullptr)
+    {
+        delete m_algorithm;
+    }
     m_algorithm = algo;
 }
 
 Visualizer::~Visualizer()
 {
-    delete m_algorithm;
+    if(m_algorithm != nullptr)
+    {
+        delete m_algorithm;
+    }
 }

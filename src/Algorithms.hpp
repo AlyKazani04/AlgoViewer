@@ -1,64 +1,67 @@
 #pragma once
 #include <string>
-#include <algorithm>
 #include <vector>
+#include "Stack.hpp"
 
 /// @brief Base class for sorting algorithms
 class Algorithm 
 {   
     public:
         Algorithm() =default;
-        // virtual void sort(std::vector<int>& array) = 0;  // TODO: Define sorting for each algorithm and make this virtual
-        virtual std::string getName() = 0;
         virtual ~Algorithm() = default;
+        
+        virtual void step(std::vector<int>& data) =0;
+        virtual void reset(std::vector<int>& data) =0;
+        virtual std::string getName() = 0;
 };
 
 class BubbleSort : public Algorithm
 {
-    int id;
     public:
         BubbleSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-        std::string getName() override { return "Bubble Sort"; }
         ~BubbleSort() = default;
+        
+        std::string getName() override { return "Bubble Sort"; }
 };
 
 class MergeSort : public Algorithm
 {
-    int id;
+    private:
+        struct Frame { int left, mid, right, count; };
+        Stack<Frame> callStack;
+        bool done = false;
     public:
         MergeSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-        std::string getName() override { return "Merge Sort"; }
         ~MergeSort() = default;
+
+        void step(std::vector<int>& data) override;
+        void reset(std::vector<int>& data) override;
+        std::string getName() override { return "Merge Sort"; }
 };
 
 class SelectionSort : public Algorithm
 {
-    int id;
     public:
         SelectionSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-        std::string getName() override { return "Selection Sort"; }
         ~SelectionSort() = default;
+
+        std::string getName() override { return "Selection Sort"; }
 };
 
 class InsertionSort : public Algorithm
-{
-    int id;
+{   
     public:
         InsertionSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-        std::string getName() override { return "Insertion Sort"; }
         ~InsertionSort() = default;
+        
+        std::string getName() override { return "Insertion Sort"; }
 };
 
 class QuickSort : public Algorithm
 {
-    int id;
     public:
         QuickSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-        std::string getName() override { return "Quick Sort"; }
         ~QuickSort() = default;
+        
+        std::string getName() override { return "Quick Sort"; }
 };

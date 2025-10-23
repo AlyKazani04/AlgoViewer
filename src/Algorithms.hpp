@@ -1,64 +1,111 @@
 #pragma once
 #include <string>
-#include <algorithm>
 #include <vector>
+#include <algorithm>
+#include <random>
+#include "Stack.hpp"
 
 /// @brief Base class for sorting algorithms
 class Algorithm 
 {   
     public:
         Algorithm() =default;
-        // virtual void sort(std::vector<int>& array) = 0;  // TODO: Define sorting for each algorithm and make this virtual
-        virtual std::string getName() = 0;
         virtual ~Algorithm() = default;
+        
+        virtual bool step(std::vector<int>& data) =0;
+        virtual void reset(std::vector<int>& data) =0;
+        virtual std::string getName() = 0;
 };
+
+// Iterative Sorts
 
 class BubbleSort : public Algorithm
 {
-    int id;
     public:
         BubbleSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-        std::string getName() override { return "Bubble Sort"; }
         ~BubbleSort() = default;
-};
-
-class MergeSort : public Algorithm
-{
-    int id;
-    public:
-        MergeSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-        std::string getName() override { return "Merge Sort"; }
-        ~MergeSort() = default;
+        
+        bool step(std::vector<int>& data);
+        void reset(std::vector<int>& data);
+        
+        std::string getName() override { return "Bubble Sort"; }
 };
 
 class SelectionSort : public Algorithm
 {
-    int id;
     public:
-        SelectionSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-        std::string getName() override { return "Selection Sort"; }
-        ~SelectionSort() = default;
+    SelectionSort() =default;
+    ~SelectionSort() = default;
+
+    bool step(std::vector<int>& data);
+    void reset(std::vector<int>& data);
+    
+    std::string getName() override { return "Selection Sort"; }
 };
 
 class InsertionSort : public Algorithm
-{
-    int id;
+{   
     public:
-        InsertionSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-        std::string getName() override { return "Insertion Sort"; }
-        ~InsertionSort() = default;
+    InsertionSort() =default;
+    ~InsertionSort() = default;
+    
+    bool step(std::vector<int>& data);
+    void reset(std::vector<int>& data);
+
+    std::string getName() override { return "Insertion Sort"; }
+};
+
+class CombSort : public Algorithm
+{   
+    public:
+    CombSort() =default;
+    ~CombSort() = default;
+    
+    bool step(std::vector<int>& data);
+    void reset(std::vector<int>& data);
+
+    std::string getName() override { return "Comb Sort"; }
+};
+
+class ShellSort : public Algorithm
+{   
+    public:
+    ShellSort() =default;
+    ~ShellSort() = default;
+    
+    bool step(std::vector<int>& data);
+    void reset(std::vector<int>& data);
+
+    std::string getName() override { return "Shell Sort"; }
+};
+
+// Recursive Sorts (uses CallStack)
+
+class MergeSort : public Algorithm
+{
+    private:
+        struct Frame { int left, mid, right, phase; };
+        Stack<Frame> callStack;
+        bool done = false;
+
+        void mergeStep(std::vector<int>& data, int left, int mid, int right);
+    public:
+        MergeSort() =default;
+        ~MergeSort() = default;
+
+        bool step(std::vector<int>& data) override;
+        void reset(std::vector<int>& data) override;
+        std::string getName() override { return "Merge Sort"; }
 };
 
 class QuickSort : public Algorithm
 {
-    int id;
     public:
         QuickSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-        std::string getName() override { return "Quick Sort"; }
         ~QuickSort() = default;
+
+        bool step(std::vector<int>& data);
+        void reset(std::vector<int>& data);
+        
+        std::string getName() override { return "Quick Sort"; }
 };

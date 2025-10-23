@@ -7,6 +7,8 @@ void Application::run()
     sf::RenderWindow window(sf::VideoMode({1280, 720}), "Sorting Visualizer");
 
     sf::Clock deltaClock;
+    window.setFramerateLimit(60);
+
     if(!ImGui::SFML::Init(window))
     {
         throw std::runtime_error("Failed to initialize ImGui-SFML");

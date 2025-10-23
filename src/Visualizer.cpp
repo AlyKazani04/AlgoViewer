@@ -6,12 +6,34 @@ Visualizer::Visualizer(int initsize = DEFAULT_DATASET_SIZE) : m_array(initsize),
     {
         m_array[i] = i + 1;
     }
+
+    m_stepClock.reset();
+}
+
+Visualizer::~Visualizer()
+{
+    if(m_algorithm != nullptr)
+    {
+        delete m_algorithm;
+    }
 }
 
 void Visualizer::update()
 {
     m_algorithmName = m_algorithm ? m_algorithm->getName() : "Select an Algorithm";
-    // m_algorithm.sort(m_array);
+
+    if(m_isSorting && m_algorithm)
+    {
+        if(m_stepClock.getElapsedTime().asMilliseconds() >= DEFAULT_STEP_TIME)
+        {
+            if(!m_algorithm->step(m_array))
+            {
+                m_isSorting = false;
+            }
+
+            m_stepClock.restart();
+        }
+    }
 }
 
 void Visualizer::draw(sf::RenderWindow& window) 
@@ -43,6 +65,53 @@ void Visualizer::draw(sf::RenderWindow& window)
     window.draw(title);
 }
 
+void Visualizer::randomizeData()
+{
+    std::shuffle(m_array.begin(), m_array.end(), std::mt19937(std::random_device{}()));
+}
+
+void Visualizer::beginSort()
+{
+    if(m_algorithm && !m_isSorting)
+    {
+        m_isSorting = true;
+        m_algorithm->reset(m_array);
+        m_stepClock.restart();
+    }
+}
+
+void Visualizer::setDataSize(int size)
+{
+    m_array.resize(size);
+    for(size_t i = 0; i < m_array.size(); i++)
+    {
+        m_array[i] = i + 1;
+    }
+
+    randomizeData();
+
+    if(m_algorithm)
+    {
+        m_algorithm->reset(m_array);
+    }
+}
+
+void Visualizer::resetData()
+{
+    for(size_t i = 0; i < m_array.size(); i++)
+    {
+        m_array[i] = i + 1;
+    }
+
+    randomizeData();
+    if(m_algorithm)
+    {
+        m_algorithm->reset(m_array);
+    }
+
+    m_isSorting = false;
+}
+
 void Visualizer::setAlgorithm(Algorithm* algo)
 {
     if(m_algorithm != nullptr)
@@ -50,12 +119,4 @@ void Visualizer::setAlgorithm(Algorithm* algo)
         delete m_algorithm;
     }
     m_algorithm = algo;
-}
-
-Visualizer::~Visualizer()
-{
-    if(m_algorithm != nullptr)
-    {
-        delete m_algorithm;
-    }
 }

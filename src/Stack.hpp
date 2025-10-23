@@ -12,14 +12,37 @@ class Stack
                 : data(val), next(nxt) {}
         };
 
-        Node* top = nullptr;
+        Node* m_top = nullptr;
     public:
         Stack() =default;
-        ~Stack();
+        ~Stack()
+        {
+            while(!isEmpty())
+            {
+                pop();
+            }
+        }
 
-        void push(const T& val);
-        void pop();
+        void push(const T& val)
+        {
+            m_top = new Node(val, m_top);
+        }
+        void pop()
+        {
+            if(m_top != nullptr)
+            {
+                Node* temp = m_top;
+                m_top = m_top->next;
+                delete temp;
+            }
+        }
 
-        bool isEmpty() const;
-        T& top();
+        bool isEmpty() const
+        {
+            return (m_top == nullptr);
+        }
+        T& top()
+        {
+            return m_top->data;
+        }
 };

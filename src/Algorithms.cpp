@@ -144,12 +144,23 @@ void MergeSort::reset(std::vector<int>& data)
 
 }
 
-bool QuickSort::step(std::vector<int>& data)
+bool QuickSort::step(std::vector<int>& data) 
 {
+    if(!initialized) reset(data);
+    if(callStack.isEmpty()) return false;
 
+    Frame& f = callStack.top();
+
+    // TODO: COMPLETE QUICK SORT
 }
 
 void QuickSort::reset(std::vector<int>& data)
 {
+    callStack = Stack<Frame>();
+    if(!data.empty())
+    {
+        callStack.push({ 0, (int)data.size() - 1, 0, 0, 0, false });
+    }
 
+    initialized = true;
 }

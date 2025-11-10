@@ -100,6 +100,11 @@ class MergeSort : public Algorithm
 
 class QuickSort : public Algorithm
 {
+    private:
+        struct Frame { int low, high, i, j, pivotVal; bool partitioning;};
+        Stack<Frame> callStack;
+
+        bool initialized = false;
     public:
         QuickSort() =default;
         ~QuickSort() = default;

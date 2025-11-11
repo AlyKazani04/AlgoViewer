@@ -6,8 +6,7 @@
 // -------------------- Bubble Sort --------------------
 bool BubbleSort::step(std::vector<int>& data)
 {
-    static size_t i = 0, j = 0;
-    static bool done = false;
+    //using private member variables 
 
     if (done || data.empty()) return false;
 

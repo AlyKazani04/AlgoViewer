@@ -21,6 +21,11 @@ class Algorithm
 
 class BubbleSort : public Algorithm
 {
+    private:
+    size_t i = 0;
+    size_t j = 0;
+    bool done = false;
+    
     public:
         BubbleSort() =default;
         ~BubbleSort() = default;

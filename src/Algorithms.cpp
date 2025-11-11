@@ -1,11 +1,47 @@
 #include "Algorithms.hpp"
+#include <algorithm>
 
 // Iterative Sorts
 
+// -------------------- Bubble Sort --------------------
 bool BubbleSort::step(std::vector<int>& data)
 {
+    static size_t i = 0, j = 0;
+    static bool done = false;
 
+    if (done || data.empty()) return false;
+
+    if (i < data.size() - 1)
+    {
+        if (j < data.size() - i - 1)
+        {
+            if (data[j] > data[j + 1])
+                std::swap(data[j], data[j + 1]);
+            j++;
+        }
+        else
+        {
+            j = 0;
+            i++;
+        }
+    }
+    else
+    {
+        done = true;
+        return false;
+    }
+
+    return true;
 }
+void BubbleSort::reset(std::vector<int>& data)
+{
+    (void)data; // unused
+    // Reset sorting state
+    i = 0;
+    j = 0;
+    done = false;
+}
+
 
 void BubbleSort::reset(std::vector<int>& data)
 {

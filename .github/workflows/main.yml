@@ -1,0 +1,25 @@
+name: “Mark PR as Reviewing when review requested”
+on:
+  pull_request:
+    types: [review_requested]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  mark_reviewing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add “reviewing” label
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              labels: ["reviewing"]
+            });

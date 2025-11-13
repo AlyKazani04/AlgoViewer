@@ -11,6 +11,6 @@ class Application
         UIManager m_ui;
         Visualizer m_visualizer;
     public:
-        Application();
+        Application(int initSize = DEFAULT_DATASET_SIZE);
         void run();
 };

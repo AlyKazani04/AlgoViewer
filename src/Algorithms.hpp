@@ -43,6 +43,8 @@ class InsertionSort : public Algorithm
     public:
         InsertionSort() =default;
         // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
+       bool step(std::vector<int>& data);
+       void reset(std::vector<int>& data); 
         ~InsertionSort() = default;
 };
 

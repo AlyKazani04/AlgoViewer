@@ -3,11 +3,8 @@
 
 // Iterative Sorts
 
-// -------------------- Bubble Sort --------------------
 bool BubbleSort::step(std::vector<int>& data)
 {
-    //using private member variables 
-
     if (done || data.empty()) return false;
 
     if (i < data.size() - 1)
@@ -34,17 +31,9 @@ bool BubbleSort::step(std::vector<int>& data)
 }
 void BubbleSort::reset(std::vector<int>& data)
 {
-    (void)data; // unused
-    // Reset sorting state
     i = 0;
     j = 0;
     done = false;
-}
-
-
-void BubbleSort::reset(std::vector<int>& data)
-{
-
 }
 
 bool SelectionSort::step(std::vector<int>& data)
@@ -179,23 +168,86 @@ void MergeSort::reset(std::vector<int>& data)
 
 }
 
+bool QuickSort::partitionStep(std::vector<int>& data)
+{
+    if(!m_state.partitioning)
+    {
+        return true;
+    }
+
+    if(m_state.j < m_state.high)
+    {
+        if(data[m_state.j] <= m_state.pivotVal)
+        {
+            m_state.i++;
+            std::swap(data[m_state.i], data[m_state.j]);
+        }
+        m_state.j++;
+        return false; // Partitioning not complete
+    }
+    else
+    {
+        std::swap(data[m_state.i + 1], data[m_state.high]);
+        return true; // Partitioning complete
+    }
+}
+
 bool QuickSort::step(std::vector<int>& data) 
 {
-    if(!initialized) reset(data);
-    if(callStack.isEmpty()) return false;
+    if(isSorted()) return false;
 
-    Frame& f = callStack.top();
+    if(!m_state.partitioning)
+    {
+        if(m_sortStack.isEmpty())
+        {
+            done = true;
+            return false;
+        }
+        std::pair<int, int> range = m_sortStack.top();
+        m_sortStack.pop();
+        
+        m_state.low = range.first;
+        m_state.high = range.second;
 
-    // TODO: COMPLETE QUICK SORT
+        if(m_state.low >= m_state.high)
+        {
+            return true; // No need to sort
+        }
+
+        m_state.pivotVal = data[m_state.high];
+        m_state.i = m_state.low - 1;
+        m_state.j = m_state.low;
+        m_state.partitioning = true;
+    }
+
+    bool partitionComplete = partitionStep(data);
+
+    if(partitionComplete)
+    {
+        int pivotIndex = m_state.i + 1;
+
+        if(pivotIndex - 1 > m_state.low)
+        {
+            m_sortStack.push({ m_state.low, pivotIndex - 1 });
+        }
+        if(pivotIndex + 1 < m_state.high)
+        {
+            m_sortStack.push({ pivotIndex + 1, m_state.high });
+        }
+        m_state.partitioning = false;
+    }
+    return true;
 }
 
 void QuickSort::reset(std::vector<int>& data)
 {
-    callStack = Stack<Frame>();
-    if(!data.empty())
+    m_sortStack = Stack<std::pair<int, int>>();
+    while(!m_sortStack.isEmpty())
     {
-        callStack.push({ 0, (int)data.size() - 1, 0, 0, 0, false });
+        m_sortStack.pop();
     }
 
-    initialized = true;
+    m_sortStack.push({0, data.size() - 1});
+    done = data.size() <= 1;
+    m_state.partitioning = true;
 }

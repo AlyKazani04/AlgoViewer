@@ -14,7 +14,7 @@ class Algorithm
         
         virtual bool step(std::vector<int>& data) =0;
         virtual void reset(std::vector<int>& data) =0;
-        virtual std::string getName() = 0;
+        virtual std::string getName() =0;
 };
 
 // Iterative Sorts
@@ -22,9 +22,9 @@ class Algorithm
 class BubbleSort : public Algorithm
 {
     private:
-    size_t i = 0;
-    size_t j = 0;
-    bool done = false;
+        size_t i = 0;
+        size_t j = 0;
+        bool done = false;
     
     public:
         BubbleSort() =default;
@@ -105,12 +105,20 @@ class MergeSort : public Algorithm
 
 class QuickSort : public Algorithm
 {
+    private:
+        struct State { int low, high, i, j, pivotVal; bool partitioning;};
+        State m_state;
+        Stack<std::pair<int, int>> m_sortStack;
+
+        bool done = false;
     public:
         QuickSort() =default;
         ~QuickSort() = default;
 
+        bool partitionStep(std::vector<int>& data);
         bool step(std::vector<int>& data);
         void reset(std::vector<int>& data);
         
+        bool isSorted() const { return done; }
         std::string getName() override { return "Quick Sort"; }
 };

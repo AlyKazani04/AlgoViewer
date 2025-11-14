@@ -4,7 +4,7 @@ Application::Application(int initSize) : m_visualizer(initSize), m_ui(&m_visuali
 
 void Application::run()
 {
-    sf::RenderWindow window(sf::VideoMode({1280, 720}), "Sorting Visualizer");
+    sf::RenderWindow window(sf::VideoMode({1280, 720}), "AlgoViewer");
 
     sf::Clock deltaClock;
     window.setFramerateLimit(60);

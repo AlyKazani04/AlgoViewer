@@ -50,17 +50,18 @@ class SelectionSort : public Algorithm
 
 class InsertionSort : public Algorithm
 {   
-    public:
-       InsertionSort() =default;
-        // void sort(std::vector<int>& array) override =0;  // TODO: Sort Implementation
-       bool step(std::vector<int>& data);
-       void reset(std::vector<int>& data); 
-        ~InsertionSort() = default;
-    InsertionSort() =default;
+private:
+    bool done = false;
+    int i = 1;
+    int j = 0;
+    int key = 0;
+
+public:
+    InsertionSort() = default;
     ~InsertionSort() = default;
     
-    bool step(std::vector<int>& data);
-    void reset(std::vector<int>& data);
+    bool step(std::vector<int>& data) override;
+    void reset(std::vector<int>& data) override;
 
     std::string getName() override { return "Insertion Sort"; }
 };
@@ -106,7 +107,6 @@ class MergeSort : public Algorithm
         bool step(std::vector<int>& data) override;
         void reset(std::vector<int>& data) override;
         std::string getName() override { return "Merge Sort"; }
->>>>>>> a4117625bb1421f9d58350bfe851970b932cd08f
 };
 
 class QuickSort : public Algorithm

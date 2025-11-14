@@ -1,18 +1,13 @@
 #include "Algorithms.hpp"
 #include <algorithm>
-
 #include <vector>
 
 // -------------------- Insertion Sort --------------------
 bool InsertionSort::step(std::vector<int>& data)
 {
-    static bool done = false;
-    static int i = 1, j = i - 1;
-    static int key;
-
     if (done || data.empty()) return false;
 
-    if (i < (int)data.size())
+    if (i < static_cast<int>(data.size()))
     {
         if (j == i - 1)
             key = data[i];
@@ -20,35 +15,13 @@ bool InsertionSort::step(std::vector<int>& data)
         if (j >= 0 && data[j] > key)
         {
             data[j + 1] = data[j];
-            j--;
+            --j;
         }
         else
         {
             data[j + 1] = key;
-            i++;
+            ++i;
             j = i - 1;
-
-// Iterative Sorts
-
-// -------------------- Bubble Sort --------------------
-bool BubbleSort::step(std::vector<int>& data)
-{
-    //using private member variables 
-
-    if (done || data.empty()) return false;
-
-    if (i < data.size() - 1)
-    {
-        if (j < data.size() - i - 1)
-        {
-            if (data[j] > data[j + 1])
-                std::swap(data[j], data[j + 1]);
-            j++;
-        }
-        else
-        {
-            j = 0;
-            i++;
         }
     }
     else
@@ -64,67 +37,89 @@ void InsertionSort::reset(std::vector<int>& data)
 {
     (void)data;
     done = false;
+    i = 1;
+    j = 0;
+    key = 0;
 }
+
+// -------------------- Bubble Sort --------------------
+bool BubbleSort::step(std::vector<int>& data)
+{
+    if (done || data.empty()) return false;
+
+    if (i < data.size() - 1)
+    {
+        if (j < data.size() - i - 1)
+        {
+            if (data[j] > data[j + 1])
+                std::swap(data[j], data[j + 1]);
+            ++j;
+        }
+        else
+        {
+            j = 0;
+            ++i;
+        }
+    }
+    else
+    {
+        done = true;
+        return false;
+    }
+
+    return true;
+}
+
 void BubbleSort::reset(std::vector<int>& data)
 {
-    (void)data; // unused
-    // Reset sorting state
+    (void)data;
     i = 0;
     j = 0;
     done = false;
 }
 
-
-void BubbleSort::reset(std::vector<int>& data)
-{
-
-}
-
+// -------------------- Selection Sort (stub) --------------------
 bool SelectionSort::step(std::vector<int>& data)
 {
-
+    (void)data;
+    // TODO: implement step-by-step selection sort if required
+    return false;
 }
 
 void SelectionSort::reset(std::vector<int>& data)
 {
-
+    (void)data;
+    // reset internal state if implemented
 }
 
-bool InsertionSort::step(std::vector<int>& data)
-{
-
-}
-
-void InsertionSort::reset(std::vector<int>& data)
-{
-
-}
-
+// -------------------- Comb Sort (stub) --------------------
 bool CombSort::step(std::vector<int>& data)
 {
-
+    (void)data;
+    return false;
 }
 
 void CombSort::reset(std::vector<int>& data)
 {
-
+    (void)data;
 }
 
+// -------------------- Shell Sort (stub) --------------------
 bool ShellSort::step(std::vector<int>& data)
 {
-
+    (void)data;
+    return false;
 }
 
 void ShellSort::reset(std::vector<int>& data)
 {
-    
+    (void)data;
 }
 
-// Recursive Sorts
-
+// -------------------- Merge Sort (recursive using callStack) --------------------
 bool MergeSort::step(std::vector<int>& data)
 {
-    if(done == true || callStack.isEmpty())
+    if (done == true || callStack.isEmpty())
     {
         done = true;
         return false;
@@ -132,9 +127,9 @@ bool MergeSort::step(std::vector<int>& data)
 
     Frame& f = callStack.top();
     
-    if(f.phase == 0) // split left phase
+    if (f.phase == 0) // split left phase
     {   
-        if(f.left < f.mid)
+        if (f.left < f.mid)
         {
             callStack.push({f.left, (f.left + f.mid) / 2, f.mid, 0});
             f.phase = 1;
@@ -143,9 +138,9 @@ bool MergeSort::step(std::vector<int>& data)
         f.phase = 1; 
     }
 
-    if(f.phase == 1) // split right phase
+    if (f.phase == 1) // split right phase
     {
-        if(f.mid + 1 < f.right)
+        if (f.mid + 1 < f.right)
         {
             callStack.push({f.mid + 1, (f.mid + 1 + f.right) / 2, f.right, 0});
             f.phase = 2;
@@ -154,7 +149,7 @@ bool MergeSort::step(std::vector<int>& data)
         f.phase = 2;
     }
     
-    if(f.phase == 2) // merge back phase
+    if (f.phase == 2) // merge back phase
     {
         mergeStep(data, f.left, f.mid, f.right);
         callStack.pop();
@@ -167,57 +162,40 @@ bool MergeSort::step(std::vector<int>& data)
 void MergeSort::mergeStep(std::vector<int>& data, int left, int mid, int right)
 {
     std::vector<int> temp;
-    int i = left;
-    int j = mid + 1;
+    int a = left;
+    int b = mid + 1;
 
-    while(i <= mid && j <= right)
+    while (a <= mid && b <= right)
     {
-        if(data[i] < data[j])
-        {
-            temp.push_back(data[i++]);
-        }
+        if (data[a] < data[b])
+            temp.push_back(data[a++]);
         else
-        {
-            temp.push_back(data[j++]);
-        }
+            temp.push_back(data[b++]);
     }
-    while(i <= mid)
-    {
-        temp.push_back(data[i++]);
-    }
+    while (a <= mid) temp.push_back(data[a++]);
+    while (b <= right) temp.push_back(data[b++]);
 
-    while(j <= right)
-    {
-        temp.push_back(data[j++]);
-    }
-
-    for(int k = 0; k < (int)temp.size(); k++)
-    {
+    for (int k = 0; k < static_cast<int>(temp.size()); ++k)
         data[left + k] = temp[k];
-    }
 }
 
 void MergeSort::reset(std::vector<int>& data)
 {
     done = false;
-    while(!callStack.isEmpty())
-    {
-        callStack.pop();
-    }
+    while (!callStack.isEmpty()) callStack.pop();
 
-    if(data.size() > 1)
-    {
-        callStack.push({0, (int)data.size() / 2, (int)data.size()- 1, 0});
-    }
-
+    if (data.size() > 1)
+        callStack.push({0, static_cast<int>(data.size()) / 2, static_cast<int>(data.size()) - 1, 0});
 }
 
+// -------------------- Quick Sort (stub) --------------------
 bool QuickSort::step(std::vector<int>& data)
 {
-
+    (void)data;
+    return false;
 }
 
 void QuickSort::reset(std::vector<int>& data)
 {
-
+    (void)data;
 }

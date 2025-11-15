@@ -50,12 +50,18 @@ class SelectionSort : public Algorithm
 
 class InsertionSort : public Algorithm
 {   
-    public:
-    InsertionSort() =default;
+private:
+    bool done = false;
+    int i = 1;
+    int j = 0;
+    int key = 0;
+
+public:
+    InsertionSort() = default;
     ~InsertionSort() = default;
     
-    bool step(std::vector<int>& data);
-    void reset(std::vector<int>& data);
+    bool step(std::vector<int>& data) override;
+    void reset(std::vector<int>& data) override;
 
     std::string getName() override { return "Insertion Sort"; }
 };

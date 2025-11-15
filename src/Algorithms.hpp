@@ -38,13 +38,19 @@ class BubbleSort : public Algorithm
 
 class SelectionSort : public Algorithm
 {
-    public:
-    SelectionSort() =default;
+private:
+    size_t i = 0;         // Current index being filled
+    size_t j = 1;         // Index scanning for minimum
+    size_t minIndex = 0;  // Index of minimum in unsorted part
+    bool done = false;    // Indicates sorting is complete
+
+public:
+    SelectionSort() = default;
     ~SelectionSort() = default;
 
-    bool step(std::vector<int>& data);
-    void reset(std::vector<int>& data);
-    
+    bool step(std::vector<int>& data) override;
+    void reset(std::vector<int>& data) override;
+
     std::string getName() override { return "Selection Sort"; }
 };
 

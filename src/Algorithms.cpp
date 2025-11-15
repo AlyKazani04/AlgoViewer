@@ -41,6 +41,34 @@ void BubbleSort::reset(std::vector<int>& data)
 
 bool SelectionSort::step(std::vector<int>& data)
 {
+    if (done || data.empty()) return false;
+
+    // Outer loop: current index to fill
+    if (i < data.size() - 1)
+    {
+        // Inner loop: find minimum in the unsorted part
+        if (j < data.size())
+        {
+            if (data[j] < data[minIndex])
+                minIndex = j;
+            j++;
+        }
+        else
+        {
+            // Swap the found minimum with data[i]
+            std::swap(data[i], data[minIndex]);
+            i++;             // Move to next index
+            j = i + 1;       // Reset scanning index
+            minIndex = i;    // Reset minIndex for next pass
+        }
+    }
+    else
+    {
+        done = true;  // Sorting is complete
+        return false;
+    }
+
+    return true; // Step completed, sorting not done yet
     (void)data;
     // TODO: implement step-by-step selection sort if required
     return false;
@@ -48,9 +76,14 @@ bool SelectionSort::step(std::vector<int>& data)
 
 void SelectionSort::reset(std::vector<int>& data)
 {
+    i = 0;
+    j = 1;
+    minIndex = 0;
+    done = false;
     (void)data;
     // reset internal state if implemented
 }
+
 // -------------------- Insertion Sort --------------------
 bool InsertionSort::step(std::vector<int>& data)
 {

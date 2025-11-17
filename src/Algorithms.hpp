@@ -38,62 +38,90 @@ class BubbleSort : public Algorithm
 
 class SelectionSort : public Algorithm
 {
-private:
-    size_t i = 0;         // Current index being filled
-    size_t j = 1;         // Index scanning for minimum
-    size_t minIndex = 0;  // Index of minimum in unsorted part
-    bool done = false;    // Indicates sorting is complete
+    private:
+        size_t i = 0;         // Current index being filled
+        size_t j = 1;         // Index scanning for minimum
+        size_t minIndex = 0;  // Index of minimum in unsorted part
+        bool done = false;    // Indicates sorting is complete
 
-public:
-    SelectionSort() = default;
-    ~SelectionSort() = default;
+    public:
+        SelectionSort() = default;
+        ~SelectionSort() = default;
 
-    bool step(std::vector<int>& data) override;
-    void reset(std::vector<int>& data) override;
+        bool step(std::vector<int>& data) override;
+        void reset(std::vector<int>& data) override;
 
-    std::string getName() override { return "Selection Sort"; }
+        std::string getName() override { return "Selection Sort"; }
 };
 
 class InsertionSort : public Algorithm
 {   
-private:
-    bool done = false;
-    int i = 1;
-    int j = 0;
-    int key = 0;
+    private:
+        bool done = false;
+        int i = 1;
+        int j = 0;
+        int key = 0;
 
-public:
-    InsertionSort() = default;
-    ~InsertionSort() = default;
-    
-    bool step(std::vector<int>& data) override;
-    void reset(std::vector<int>& data) override;
+    public:
+        InsertionSort() = default;
+        ~InsertionSort() = default;
+        
+        bool step(std::vector<int>& data) override;
+        void reset(std::vector<int>& data) override;
 
-    std::string getName() override { return "Insertion Sort"; }
+        std::string getName() override { return "Insertion Sort"; }
 };
 
 class CombSort : public Algorithm
 {   
     public:
-    CombSort() =default;
-    ~CombSort() = default;
-    
-    bool step(std::vector<int>& data);
-    void reset(std::vector<int>& data);
+        CombSort() =default;
+        ~CombSort() = default;
+        
+        bool step(std::vector<int>& data);
+        void reset(std::vector<int>& data);
 
-    std::string getName() override { return "Comb Sort"; }
+        std::string getName() override { return "Comb Sort"; }
 };
 
 class ShellSort : public Algorithm
 {   
     public:
-    ShellSort() =default;
-    ~ShellSort() = default;
-    
-    bool step(std::vector<int>& data);
-    void reset(std::vector<int>& data);
+        ShellSort() =default;
+        ~ShellSort() = default;
+        
+        bool step(std::vector<int>& data);
+        void reset(std::vector<int>& data);
 
-    std::string getName() override { return "Shell Sort"; }
+        std::string getName() override { return "Shell Sort"; }
+};
+
+class RadixSort : public Algorithm
+{
+    private:
+        struct Node
+        {
+            int data;
+            Node* next;
+            Node(int val) : data(val), next(nullptr) {}
+        };
+
+        Node* buckets[10];
+        int exp = 1;
+        bool done = false;
+        int maxVal;
+        
+        int getMax(const std::vector<int>& data);
+        void insertBuckets(Node*& head, int val);
+        void clearBuckets();
+    public:
+        RadixSort() =default;
+        ~RadixSort() = default;
+
+        bool step(std::vector<int>& data) override;
+        void reset(std::vector<int>& data) override;
+
+        std::string getName() override { return "Radix Sort"; }
 };
 
 // Recursive Sorts

@@ -136,6 +136,104 @@ void ShellSort::reset(std::vector<int>& data)
 
 }
 
+void RadixSort::insertBuckets(Node*& head, int val)
+{
+    Node* newNode = new Node(val);
+    if(head == nullptr)
+    {
+        head = newNode;
+    }
+    else
+    {
+        Node* temp = head;
+        while(temp->next != nullptr)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+int RadixSort::getMax(const std::vector<int>& data)
+{
+    int max = data[0];
+    for(int i = 0; i < data.size(); i++)
+    {
+        if(data[i] > max)
+        {
+            max = data[i];
+        }
+    }
+    return max;
+}
+
+void RadixSort::clearBuckets()
+{
+    Node* temp;
+    for(int i = 0; i < 10; i++)
+    {
+        while(buckets[i] != nullptr)
+        {
+            temp = buckets[i];
+            buckets[i] = buckets[i]->next;
+            delete temp;
+        }
+    }
+}
+
+bool RadixSort::step(std::vector<int>& data)
+{
+    if(done) return false;
+
+    if(exp == 1)
+    {
+        maxVal = getMax(data);
+    }
+
+    if(maxVal / exp > 0)
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            buckets[i] = nullptr;
+        }
+
+        for(int i = 0; i < data.size(); i++)
+        {
+            int digit = (data[i] / exp) % 10;
+            insertBuckets(buckets[digit], data[i]);
+        }
+
+        int index = 0;
+        for(int i = 0; i < 10; i++)
+        {
+            Node* temp = buckets[i];
+            while(temp != nullptr)
+            {
+                data[index++] = temp->data;
+                temp = temp->next;
+            }
+        }
+
+        exp *= 10;
+        clearBuckets();
+    }
+    else
+    {
+        done = true;
+        return false;
+    }
+
+
+    return true;
+}
+
+void RadixSort::reset(std::vector<int>& data)
+{
+    exp = 1;
+    done = false;
+    clearBuckets();
+}
+
 // Recursive Sorts
 
 bool MergeSort::step(std::vector<int>& data)

@@ -2,9 +2,8 @@
 #include <algorithm>
 #include <vector>
 
+// Iterative Sorts
 
-
-// -------------------- Bubble Sort --------------------
 bool BubbleSort::step(std::vector<int>& data)
 {
     if (done || data.empty()) return false;
@@ -41,17 +40,44 @@ void BubbleSort::reset(std::vector<int>& data)
 
 bool SelectionSort::step(std::vector<int>& data)
 {
-    (void)data;
-    // TODO: implement step-by-step selection sort if required
-    return false;
+    if (done || data.empty()) return false;
+
+    // Outer loop: current index to fill
+    if (i < data.size() - 1)
+    {
+        // Inner loop: find minimum in the unsorted part
+        if (j < data.size())
+        {
+            if (data[j] < data[minIndex])
+                minIndex = j;
+            j++;
+        }
+        else
+        {
+            // Swap the found minimum with data[i]
+            std::swap(data[i], data[minIndex]);
+            i++;             // Move to next index
+            j = i + 1;       // Reset scanning index
+            minIndex = i;    // Reset minIndex for next pass
+        }
+    }
+    else
+    {
+        done = true;  // Sorting is complete
+        return false;
+    }
+
+    return true; // Step completed, sorting not done yet
 }
 
 void SelectionSort::reset(std::vector<int>& data)
 {
-    (void)data;
-    // reset internal state if implemented
+    i = 0;
+    j = 1;
+    minIndex = 0;
+    done = false;
 }
-// -------------------- Insertion Sort --------------------
+
 bool InsertionSort::step(std::vector<int>& data)
 {
     if (done || data.empty()) return false;
@@ -84,40 +110,37 @@ bool InsertionSort::step(std::vector<int>& data)
 
 void InsertionSort::reset(std::vector<int>& data)
 {
-    (void)data;
     done = false;
     i = 1;
     j = 0;
     key = 0;
 }
-// -------------------- Comb Sort (stub) --------------------
+
 bool CombSort::step(std::vector<int>& data)
 {
-    (void)data;
     return false;
 }
 
 void CombSort::reset(std::vector<int>& data)
 {
-    (void)data;
+
 }
 
-// -------------------- Shell Sort (stub) --------------------
 bool ShellSort::step(std::vector<int>& data)
 {
-    (void)data;
     return false;
 }
 
 void ShellSort::reset(std::vector<int>& data)
 {
-    (void)data;
+
 }
 
-// -------------------- Merge Sort (recursive using callStack) --------------------
+// Recursive Sorts
+
 bool MergeSort::step(std::vector<int>& data)
 {
-    if (done == true || callStack.isEmpty())
+    if(done == true || callStack.isEmpty())
     {
         done = true;
         return false;
@@ -125,9 +148,9 @@ bool MergeSort::step(std::vector<int>& data)
 
     Frame& f = callStack.top();
     
-    if (f.phase == 0) // split left phase
+    if(f.phase == 0) // split left phase
     {   
-        if (f.left < f.mid)
+        if(f.left < f.mid)
         {
             callStack.push({f.left, (f.left + f.mid) / 2, f.mid, 0});
             f.phase = 1;
@@ -136,9 +159,9 @@ bool MergeSort::step(std::vector<int>& data)
         f.phase = 1; 
     }
 
-    if (f.phase == 1) // split right phase
+    if(f.phase == 1) // split right phase
     {
-        if (f.mid + 1 < f.right)
+        if(f.mid + 1 < f.right)
         {
             callStack.push({f.mid + 1, (f.mid + 1 + f.right) / 2, f.right, 0});
             f.phase = 2;
@@ -147,7 +170,7 @@ bool MergeSort::step(std::vector<int>& data)
         f.phase = 2;
     }
     
-    if (f.phase == 2) // merge back phase
+    if(f.phase == 2) // merge back phase
     {
         mergeStep(data, f.left, f.mid, f.right);
         callStack.pop();
@@ -160,30 +183,43 @@ bool MergeSort::step(std::vector<int>& data)
 void MergeSort::mergeStep(std::vector<int>& data, int left, int mid, int right)
 {
     std::vector<int> temp;
-    int a = left;
-    int b = mid + 1;
+    int i = left;
+    int j = mid + 1;
 
-    while (a <= mid && b <= right)
+    while(i <= mid && j <= right)
     {
-        if (data[a] < data[b])
-            temp.push_back(data[a++]);
+        if (data[i] < data[j])
+            temp.push_back(data[i++]);
         else
-            temp.push_back(data[b++]);
+            temp.push_back(data[j++]);
     }
-    while (a <= mid) temp.push_back(data[a++]);
-    while (b <= right) temp.push_back(data[b++]);
 
-    for (int k = 0; k < static_cast<int>(temp.size()); ++k)
+    while(i <= mid)
+    {
+        temp.push_back(data[i++]);
+    }
+
+    while(j <= right)
+    {
+        temp.push_back(data[j++]);
+    }
+
+    for(int k = 0; k < (int)temp.size(); k++)
         data[left + k] = temp[k];
 }
 
 void MergeSort::reset(std::vector<int>& data)
 {
     done = false;
-    while (!callStack.isEmpty()) callStack.pop();
+    while(!callStack.isEmpty())
+    {
+        callStack.pop();
+    }
 
-    if (data.size() > 1)
-        callStack.push({0, static_cast<int>(data.size()) / 2, static_cast<int>(data.size()) - 1, 0});
+    if(data.size() > 1)
+    {
+        callStack.push({0, (int)data.size() / 2, (int)data.size() - 1, 0});
+    }
 }
 
 bool QuickSort::partitionStep(std::vector<int>& data)

@@ -96,7 +96,7 @@ class ShellSort : public Algorithm
     std::string getName() override { return "Shell Sort"; }
 };
 
-// Recursive Sorts (uses CallStack)
+// Recursive Sorts
 
 class MergeSort : public Algorithm
 {

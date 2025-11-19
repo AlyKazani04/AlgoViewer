@@ -6,7 +6,7 @@ void UIManager::showMenu()
         return;
     
     ImGui::Begin("Menu");
-    if(ImGui::Combo("Algorithm", &m_selectedAlgoIndex, "Bubble Sort\0Selection Sort\0Insertion Sort\0Comb Sort\0Shell Sort\0Merge Sort\0Quick Sort\0", 7))
+    if(ImGui::Combo("Algorithm", &m_selectedAlgoIndex, "Bubble Sort\0Selection Sort\0Insertion Sort\0Comb Sort\0Shell Sort\0Radix Sort\0Merge Sort\0Quick Sort\0", 8))
     {
         switch(m_selectedAlgoIndex)
         {
@@ -26,9 +26,12 @@ void UIManager::showMenu()
                 visuals->setAlgorithm(new ShellSort());
                 break;
             case 5:
-                visuals->setAlgorithm(new MergeSort());
+                visuals->setAlgorithm(new RadixSort());
                 break;
             case 6:
+                visuals->setAlgorithm(new MergeSort());
+                break;
+            case 7:
                 visuals->setAlgorithm(new QuickSort());
                 break;
             default:

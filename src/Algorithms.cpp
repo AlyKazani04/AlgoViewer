@@ -136,6 +136,124 @@ void ShellSort::reset(std::vector<int>& data)
 
 }
 
+void RadixSort::insertBuckets(Node*& head, int val)
+{
+    Node* newNode = new Node(val);
+    if(head == nullptr)
+    {
+        head = newNode;
+    }
+    else
+    {
+        Node* temp = head;
+        while(temp->next != nullptr)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+int RadixSort::getMax(const std::vector<int>& data)
+{
+    int max = data[0];
+    for(int x : data)
+    {
+        if(x > max)
+        {
+            max = x;
+        }
+    }
+    return max;
+}
+
+void RadixSort::clearBuckets()
+{
+    Node* temp;
+    for(int i = 0; i < 10; i++)
+    {
+        while(buckets[i] != nullptr)
+        {
+            temp = buckets[i];
+            buckets[i] = buckets[i]->next;
+            delete temp;
+        }
+    }
+}
+
+bool RadixSort::step(std::vector<int>& data)
+{
+    if(done) return false;
+
+    if(exp == 1)
+    {
+        maxVal = getMax(data);
+    }
+
+    if(maxVal / exp > 0 && swapping == false) // filling the buckets
+    {
+        for(int i = 0; i < data.size(); i++)
+        {
+            int digit = (data[i] / exp) % 10;
+            insertBuckets(buckets[digit], data[i]);
+        }
+
+        swapping = true;
+        index = 0;
+        bucketIndex = 0;
+
+        return true;
+    }
+
+    if(swapping && index < data.size()) // emptying buckets, one by one
+    {
+        if(bucketIndex < 10)
+        {
+            if(buckets[bucketIndex] != nullptr)
+            {
+                Node* node = buckets[bucketIndex];   
+                data[index++] = node->data;
+                buckets[bucketIndex] = node->next;
+                delete node;
+
+            }
+            else
+            {
+                bucketIndex++;
+            }
+
+            return true;
+        }    
+    } 
+    else
+    {
+        swapping = false;
+        index = 0;
+        bucketIndex = 0;
+
+        exp *= 10;
+        clearBuckets();
+    }
+
+    if(maxVal / exp == 0)
+    {
+        done = true;
+        return false;
+    }
+
+    return true;
+}
+
+void RadixSort::reset(std::vector<int>& data)
+{
+    exp = 1;
+    done = false;
+    swapping = false;
+    index= 0;
+    bucketIndex = 0;
+    clearBuckets();
+}
+
 // Recursive Sorts
 
 bool MergeSort::step(std::vector<int>& data)

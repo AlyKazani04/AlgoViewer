@@ -31,8 +31,12 @@ void Visualizer::update()
                 m_isSorting = false;
             }
 
-            m_stepClock.restart();
+            m_elapsedTime += m_stepClock.restart();
         }
+    }
+    else
+    {
+        m_stepClock.reset();
     }
 }
 
@@ -62,6 +66,11 @@ void Visualizer::draw(sf::RenderWindow& window)
         window.draw(bar);
     }
 
+    sf::Text elapsedTimeText(font, "Step Duration: " + std::to_string(DEFAULT_STEP_TIME) + " ms\nElapsed Time: " + std::to_string(m_elapsedTime.asSeconds()) + " seconds", 22);
+    elapsedTimeText.setFillColor(sf::Color::White);
+    elapsedTimeText.setPosition({10.f, window.getSize().y - elapsedTimeText.getLocalBounds().size.y - 10.f});
+
+    window.draw(elapsedTimeText);
     window.draw(title);
 }
 
@@ -77,6 +86,7 @@ void Visualizer::beginSort()
         m_isSorting = true;
         m_algorithm->reset(m_array);
         m_stepClock.restart();
+        m_elapsedTime = sf::Time::Zero;
     }
 }
 
@@ -110,6 +120,7 @@ void Visualizer::resetData()
     }
 
     m_isSorting = false;
+    m_stepClock.reset();
 }
 
 void Visualizer::setAlgorithm(Algorithm* algo)

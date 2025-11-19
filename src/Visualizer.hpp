@@ -19,6 +19,7 @@ class Visualizer
         bool m_isSorting = false;
 
         sf::Clock m_stepClock;
+        sf::Time m_elapsedTime;
     public:
         Visualizer(int initsize);
         ~Visualizer();

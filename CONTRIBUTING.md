@@ -114,6 +114,3 @@ git push origin --delete feature/<short-description>
 | Open PR | via GitHub |
 
 ### 🫱🏼‍🫲🏽 Thanks for Contributing!
-
-## Contributors
-![](https://images.weserv.nl/?url=avatars.githubusercontent.com/u/179925225?&v=4&h=80&fit=cover&mask=circle&maxage=7d)

@@ -109,7 +109,11 @@ class RadixSort : public Algorithm
         Node* buckets[10];
         int exp = 1;
         bool done = false;
-        int maxVal;
+        int maxVal = 0;
+        bool swapping = false;
+
+        int index = 0;
+        int bucketIndex = 0;
         
         int getMax(const std::vector<int>& data);
         void insertBuckets(Node*& head, int val);

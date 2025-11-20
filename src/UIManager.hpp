@@ -13,5 +13,6 @@ class UIManager
     public:
         
         UIManager(Visualizer* vis) : m_selectedAlgoIndex(0), m_isMenuOpen(true), visuals(vis) {}
+        
         void showMenu();
 };

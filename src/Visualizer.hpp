@@ -32,5 +32,6 @@ class Visualizer
         void setDataSize(int size);
         void resetData();
         void setAlgorithm(Algorithm* algo);
+        std::string getAboutInfo();
 };
     

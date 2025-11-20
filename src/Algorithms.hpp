@@ -15,6 +15,7 @@ class Algorithm
         virtual bool step(std::vector<int>& data) =0;
         virtual void reset(std::vector<int>& data) =0;
         virtual std::string getName() =0;
+        virtual std::string getDescription() =0; 
 };
 
 // Iterative Sorts
@@ -34,6 +35,10 @@ class BubbleSort : public Algorithm
         void reset(std::vector<int>& data);
         
         std::string getName() override { return "Bubble Sort"; }
+        std::string getDescription() override
+        {
+            return "Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted. Its average and worst-case time complexity is O(n^2), making it inefficient on large lists.";
+        }
 };
 
 class SelectionSort : public Algorithm
@@ -52,6 +57,10 @@ class SelectionSort : public Algorithm
         void reset(std::vector<int>& data) override;
 
         std::string getName() override { return "Selection Sort"; }
+        std::string getDescription() override
+        {
+            return "Selection Sort is an in-place comparison sorting algorithm. It divides the input list into two parts: a sorted sublist and an unsorted sublist. It repeatedly selects the smallest (or largest) element from the unsorted sublist, swapping it with the leftmost unsorted element, moving the boundary of the sorted sublist one element to the right. Its time complexity is O(n^2) in all cases, making it inefficient on large lists.";
+        }
 };
 
 class InsertionSort : public Algorithm
@@ -70,6 +79,10 @@ class InsertionSort : public Algorithm
         void reset(std::vector<int>& data) override;
 
         std::string getName() override { return "Insertion Sort"; }
+        std::string getDescription() override
+        {
+            return "Insertion Sort is a simple sorting algorithm that builds the final sorted array one item at a time. It is much less efficient on large lists than more advanced algorithms such as quicksort, heapsort, or merge sort. However, it has several advantages, such as simple implementation, efficient for small data sets, and more efficient in practice than most other simple quadratic algorithms such as selection sort or bubble sort.";
+        }
 };
 
 class CombSort : public Algorithm
@@ -82,6 +95,10 @@ class CombSort : public Algorithm
         void reset(std::vector<int>& data);
 
         std::string getName() override { return "Comb Sort"; }
+        std::string getDescription() override
+        {
+            return "Comb Sort is an improvement over Bubble Sort that eliminates small values near the end of the list, which slow down the sorting process. It works by comparing elements at a certain gap and reducing the gap over time until it becomes 1, at which point it performs a final pass similar to Bubble Sort. Its average-case time complexity is O(n log n), making it more efficient than simple quadratic algorithms.";
+        }
 };
 
 class ShellSort : public Algorithm
@@ -94,6 +111,10 @@ class ShellSort : public Algorithm
         void reset(std::vector<int>& data);
 
         std::string getName() override { return "Shell Sort"; }
+        std::string getDescription() override
+        {
+            return "Shell Sort is an in-place comparison sort that generalizes insertion sort to allow the exchange of items that are far apart. The idea is to arrange the list of elements so that, starting anywhere, taking every hth element produces a sorted list. Such a list is said to be h-sorted. The time complexity of Shell Sort depends on the gap sequence used, but it generally performs better than O(n^2) algorithms like bubble sort and insertion sort.";
+        }
 };
 
 class RadixSort : public Algorithm
@@ -126,6 +147,10 @@ class RadixSort : public Algorithm
         void reset(std::vector<int>& data) override;
 
         std::string getName() override { return "Radix Sort"; }
+        std::string getDescription() override
+        {
+            return "Radix Sort is a non-comparative integer sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value. It processes the digits from least significant to most significant. Its time complexity is O(d*(n+b)), where d is the number of digits in the largest number, n is the number of elements to be sorted, and b is the base of the numeral system.";
+        }
 };
 
 // Recursive Sorts
@@ -145,6 +170,10 @@ class MergeSort : public Algorithm
         bool step(std::vector<int>& data) override;
         void reset(std::vector<int>& data) override;
         std::string getName() override { return "Merge Sort"; }
+        std::string getDescription() override
+        {
+            return "Merge Sort is a divide-and-conquer algorithm that divides the input array into two halves, sorts each half recursively, and then merges the two sorted halves back together. It is efficient and has a time complexity of O(n log n) in all cases, making it suitable for large datasets.";
+        }
 };
 
 class QuickSort : public Algorithm
@@ -165,4 +194,8 @@ class QuickSort : public Algorithm
         
         bool isSorted() const { return done; }
         std::string getName() override { return "Quick Sort"; }
+        std::string getDescription() override
+        {
+            return "Quick Sort is a highly efficient sorting algorithm and is based on partitioning of array of data into smaller arrays. A large array is partitioned into two arrays one of which holds values smaller than the specified value, called pivot, based on which the partition is made and another array holds values greater than the pivot. The sub-arrays are then sorted recursively. Its average-case time complexity is O(n log n), making it suitable for large datasets.";
+        }
 };

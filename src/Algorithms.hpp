@@ -87,6 +87,11 @@ class InsertionSort : public Algorithm
 
 class CombSort : public Algorithm
 {   
+    private:
+        int gap = 0;
+        int i = 0;
+        bool swapped = true;
+        
     public:
         CombSort() =default;
         ~CombSort() = default;
@@ -103,6 +108,13 @@ class CombSort : public Algorithm
 
 class ShellSort : public Algorithm
 {   
+    private:
+    int gap = 0;
+    int i = 0;
+    int j = 0;
+    int temp = 0;
+    bool initialized = false;
+
     public:
         ShellSort() =default;
         ~ShellSort() = default;
@@ -111,6 +123,7 @@ class ShellSort : public Algorithm
         void reset(std::vector<int>& data);
 
         std::string getName() override { return "Shell Sort"; }
+
         std::string getDescription() override
         {
             return "Shell Sort is an in-place comparison sort that generalizes insertion sort to allow the exchange of items that are far apart. The idea is to arrange the list of elements so that, starting anywhere, taking every hth element produces a sorted list. Such a list is said to be h-sorted. The time complexity of Shell Sort depends on the gap sequence used, but it generally performs better than O(n^2) algorithms like bubble sort and insertion sort.";

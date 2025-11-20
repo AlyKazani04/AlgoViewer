@@ -118,12 +118,42 @@ void InsertionSort::reset(std::vector<int>& data)
 
 bool CombSort::step(std::vector<int>& data)
 {
-    return false;
+   if (data.empty()) 
+        return false;
+    if (gap == 0)
+    {
+        gap = data.size();
+        i = 0;
+        swapped = true;
+    }
+    if (gap == 1 && swapped == false)
+        return false;
+    if (i + gap >= (int)data.size())
+    {
+        gap = (gap * 10) / 13;
+        if (gap < 1) gap = 1;
+
+        i = 0;
+        swapped = false;
+
+        return true;
+    }
+
+    if (data[i] > data[i + gap])
+    {
+        std::swap(data[i], data[i + gap]);
+        swapped = true;
+    }
+
+    i++;
+    return true;
 }
 
 void CombSort::reset(std::vector<int>& data)
 {
-
+ gap = data.size();
+    i = 0;
+    swapped = true;
 }
 
 bool ShellSort::step(std::vector<int>& data)

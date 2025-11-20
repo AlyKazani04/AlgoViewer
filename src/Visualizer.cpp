@@ -131,3 +131,13 @@ void Visualizer::setAlgorithm(Algorithm* algo)
     }
     m_algorithm = algo;
 }
+
+std::string Visualizer::getAboutInfo()
+{
+    if(m_algorithm)
+    {
+        return m_algorithm->getDescription();
+    }
+
+    return "";
+}

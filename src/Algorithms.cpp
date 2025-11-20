@@ -128,16 +128,21 @@ void CombSort::reset(std::vector<int>& data)
 
 bool ShellSort::step(std::vector<int>& data)
 {
-    
-    static int gap = data.size() / 2;
-    static int i = gap;
-    static int j = 0;
-    static int temp = 0;
+    if (data.empty()) return false;
 
-    if (gap == 0) 
-        return false; // done
+    if (!initialized)
+    {
+        gap = data.size() / 2;
+        i = gap;
+        j = i;
+        temp = 0;
+        initialized = true;
+    }
 
-    if (i < data.size())
+    if (gap == 0)
+        return false; // sorting done
+
+    if (i < (int)data.size())
     {
         if (j == i)
             temp = data[i];
@@ -164,10 +169,14 @@ bool ShellSort::step(std::vector<int>& data)
     }
 }
 
+
 void ShellSort::reset(std::vector<int>& data)
 {
-(void)data;
-// static variables will reset when sorting restarts
+    gap = data.size() / 2;
+    i = gap;
+    j = i;
+    temp = 0;
+    initialized = false;
 }
 
 void RadixSort::insertBuckets(Node*& head, int val)

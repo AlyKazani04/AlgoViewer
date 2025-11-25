@@ -5,7 +5,7 @@
 build/
 
 # AlgoViewer Release Folder
-AlgoViewer/
+AlgoViewer/*
 
 # ImGui Debug files
 *.ini

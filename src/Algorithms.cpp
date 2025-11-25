@@ -120,22 +120,27 @@ bool CombSort::step(std::vector<int>& data)
 {
     if (data.empty()) 
         return false;
-    if (gap == 1 && swapped == false)
+    
+    if (gap == 1 && swapped == false && i == (int)data.size() - 1)
+    {
         return false;
+    }
+
     if (i + gap >= (int)data.size())
     {
         gap = (gap * 10) / 13;
         if (gap < 1) gap = 1;
         i = 0;
+
         swapped = false;
-        return true;
     }
+
     if (data[i] > data[i + gap])
     {
         std::swap(data[i], data[i + gap]);
         swapped = true;
     }
-
+    
     i++;
     return true;
 }

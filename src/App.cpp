@@ -2,20 +2,20 @@
 
 Application::Application(int initSize) : m_visualizer(initSize), m_ui(&m_visualizer) 
 {
-    if(!m_modeTextureL.loadFromFile("../resources/lightmode.png"))
+    if(!m_modeTextureL.loadFromFile("resources/lightmode.png"))
     {
         throw std::runtime_error("Failed to load texture!");
     }
     m_modeTextureL.setSmooth(false);
 
-    if(!m_modeTextureD.loadFromFile("../resources/darkmode.png"))
+    if(!m_modeTextureD.loadFromFile("resources/darkmode.png"))
     {
         throw std::runtime_error("Failed to load texture!");
     }
     m_modeTextureD.setSmooth(false);
 }
 
-bool Application::isDarkPressed(sf::RenderWindow& window)
+void Application::isDarkPressed(sf::RenderWindow& window)
 {
     sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
@@ -23,10 +23,7 @@ bool Application::isDarkPressed(sf::RenderWindow& window)
     {
         m_isDark = !m_isDark;
         m_modeChangeCooldown.restart();
-        return true;
     }
-    
-    return false;
 }
 
 void Application::run()
@@ -53,13 +50,39 @@ void Application::run()
             }
         }
 
+        // Update
         ImGui::SFML::Update(window, deltaClock.restart());
         m_visualizer.update(m_isDark);
+        isDarkPressed(window);
         m_ui.showMenu();
 
-        window.clear((m_isDark) ? sf::Color::Black : sf::Color::White);
+        // Draw
+        window.clear((m_isDark) ? sf::Color(24, 24, 24, 255) : sf::Color(252, 250, 235, 255)); // dark : light
         m_visualizer.draw(window);
         ImGui::SFML::Render(window);
+
+        sf::Texture modeTexture;
+
+        if(m_isDark)
+        {
+            modeTexture = m_modeTextureL;
+        }
+        else
+        {
+            modeTexture = m_modeTextureD;
+        }
+
+        sf::Sprite modeSprite(modeTexture);
+        modeSprite.setScale({1,1});
+
+        sf::Rect<float> modebounds = modeSprite.getLocalBounds();
+        modeSprite.setOrigin({modebounds.size.x / 2, modebounds.size.y / 2});
+
+        modeSprite.setPosition({ modeSprite.getLocalBounds().size.x / 2.f + 10.f, static_cast<float>(window.getSize().y) / 2.f });
+
+        m_darkBounds = modeSprite.getGlobalBounds();
+
+        window.draw(modeSprite);
         window.display();
     }
     ImGui::SFML::Shutdown();

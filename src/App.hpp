@@ -17,8 +17,7 @@ class Application
         bool m_isDark = true;
         sf::Clock m_modeChangeCooldown;
 
-        bool isDarkPressed(sf::RenderWindow& window);
-
+        void isDarkPressed(sf::RenderWindow& window);
     public:
         Application(int initSize = DEFAULT_DATASET_SIZE);
         void run();

@@ -10,6 +10,9 @@ class Application
     private:
         UIManager m_ui;
         Visualizer m_visualizer;
+
+        sf::Texture m_modeTextureL;
+        sf::Texture m_modeTextureD;
     public:
         Application(int initSize = DEFAULT_DATASET_SIZE);
         void run();

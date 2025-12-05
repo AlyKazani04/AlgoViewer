@@ -1,6 +1,19 @@
 #include "App.hpp"
 
-Application::Application(int initSize) : m_visualizer(initSize), m_ui(&m_visualizer) {}
+Application::Application(int initSize) : m_visualizer(initSize), m_ui(&m_visualizer) 
+{
+    if(!m_modeTextureL.loadFromFile("../resources/lightmode.png"))
+    {
+        throw std::runtime_error("Failed to load texture!");
+    }
+    m_modeTextureL.setSmooth(false);
+
+    if(!m_modeTextureD.loadFromFile("../resources/darkmode.png"))
+    {
+        throw std::runtime_error("Failed to load texture!");
+    }
+    m_modeTextureD.setSmooth(false);
+}
 
 void Application::run()
 {

@@ -18,9 +18,10 @@ Visualizer::~Visualizer()
     }
 }
 
-void Visualizer::update()
+void Visualizer::update(bool darkFlag)
 {
     m_algorithmName = m_algorithm ? m_algorithm->getName() : "Select an Algorithm";
+    m_isDark = (darkFlag) ? true : false;
 
     if(m_isSorting && m_algorithm)
     {
@@ -46,7 +47,7 @@ void Visualizer::draw(sf::RenderWindow& window)
 
     sf::Text title(font, m_algorithmName, 48);
 
-    title.setFillColor(sf::Color::White);
+    title.setFillColor((m_isDark) ? sf::Color::White : sf::Color::Black);
     title.setOrigin({title.getLocalBounds().size.x / 2.f, title.getLocalBounds().size.y / 2.f});
     title.setPosition({window.getSize().x / 2.f, 60.f});
 
@@ -61,7 +62,7 @@ void Visualizer::draw(sf::RenderWindow& window)
         sf::RectangleShape bar({barWidth - 1, float(m_array[i]) / m_array.size() * maxBarHeight});
         bar.setOrigin({0, bar.getSize().y});
         bar.setPosition({i * barWidth + basePos.x, basePos.y});
-        bar.setFillColor(sf::Color::White);
+        bar.setFillColor((m_isDark) ? sf::Color::White : sf::Color::Black);
 
         window.draw(bar);
     }

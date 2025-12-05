@@ -17,6 +17,7 @@ class Visualizer
         int m_datasetSize;
 
         bool m_isSorting = false;
+        bool m_isDark = true;
 
         sf::Clock m_stepClock;
         sf::Time m_elapsedTime;
@@ -24,7 +25,7 @@ class Visualizer
         Visualizer(int initsize);
         ~Visualizer();
 
-        void update();
+        void update(bool darkFlag);
         void draw(sf::RenderWindow& window);
 
         void randomizeData();

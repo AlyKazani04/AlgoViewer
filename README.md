@@ -8,7 +8,7 @@
 - [Build From Source](#build-from-source)
   - [Requirements](#requirements)
   - [Using build.bat](#using-buildbat)
-  - [Using CMake](#using-cmake)
+  - [Building with CMake](#building-with-cmake)
 - [Supported Algorithms](#supported-algorithms)
 - [Future Improvements](#future-improvements)
 - [Contributors](#contributors)

@@ -18,9 +18,10 @@ Visualizer::~Visualizer()
     }
 }
 
-void Visualizer::update()
+void Visualizer::update(bool darkFlag)
 {
     m_algorithmName = m_algorithm ? m_algorithm->getName() : "Select an Algorithm";
+    m_isDark = (darkFlag) ? true : false;
 
     if(m_isSorting && m_algorithm)
     {
@@ -46,7 +47,7 @@ void Visualizer::draw(sf::RenderWindow& window)
 
     sf::Text title(font, m_algorithmName, 48);
 
-    title.setFillColor(sf::Color::White);
+    title.setFillColor((m_isDark) ? sf::Color(252, 250, 235, 255) : sf::Color(20, 38, 84, 255)); // Dark : Light modes
     title.setOrigin({title.getLocalBounds().size.x / 2.f, title.getLocalBounds().size.y / 2.f});
     title.setPosition({window.getSize().x / 2.f, 60.f});
 
@@ -61,13 +62,13 @@ void Visualizer::draw(sf::RenderWindow& window)
         sf::RectangleShape bar({barWidth - 1, float(m_array[i]) / m_array.size() * maxBarHeight});
         bar.setOrigin({0, bar.getSize().y});
         bar.setPosition({i * barWidth + basePos.x, basePos.y});
-        bar.setFillColor(sf::Color::White);
+        bar.setFillColor((m_isDark) ? sf::Color(252, 250, 235, 255) : sf::Color(20, 38, 84, 255)); // Dark : Light modes
 
         window.draw(bar);
     }
 
     sf::Text elapsedTimeText(font, "Step Duration: " + std::to_string(DEFAULT_STEP_TIME) + " ms\nElapsed Time: " + std::to_string(m_elapsedTime.asSeconds()) + " seconds", 22);
-    elapsedTimeText.setFillColor(sf::Color::White);
+    elapsedTimeText.setFillColor((m_isDark) ? sf::Color(252, 250, 235, 255) : sf::Color(20, 38, 84, 255)); // Dark : Light modes
     elapsedTimeText.setPosition({10.f, window.getSize().y - elapsedTimeText.getLocalBounds().size.y - 10.f});
 
     window.draw(elapsedTimeText);

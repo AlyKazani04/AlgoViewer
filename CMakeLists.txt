@@ -38,7 +38,7 @@ target_link_directories(AlgoViewer PRIVATE
     ${SFML_ROOT}/lib
 )
 
-target_link_options(AlgoViewer PRIVATE -mconsole)
+target_link_options(AlgoViewer PRIVATE -mconsole -static -static-libgcc -static -static-libstdc++)
 
 target_link_libraries(AlgoViewer PRIVATE
     sfml-graphics-s

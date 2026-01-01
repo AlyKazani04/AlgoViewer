@@ -48,6 +48,14 @@ void Application::run()
             {
                 window.close();
             }
+            if(event->is<sf::Event::Resized>())
+            {
+                auto size = event->getIf<sf::Event::Resized>()->size;
+                sf::View view;
+                view.setSize({ static_cast<float>(size.x), static_cast<float>(size.y) });
+                view.setCenter({ static_cast<float>(size.x) / 2.f, static_cast<float>(size.y) / 2.f });
+                window.setView(view);
+            }
         }
 
         // Update

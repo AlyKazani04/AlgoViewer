@@ -33,20 +33,32 @@ target_include_directories(AlgoViewer PRIVATE
     ${IMGUI_SFML_ROOT}
     ${SRC_ROOT}
 )
+if(WIN32)
+    target_link_directories(AlgoViewer PRIVATE
+        ${SFML_ROOT}/lib
+    )
+elseif(UNIX)
+    find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
+endif()
 
-target_link_directories(AlgoViewer PRIVATE
-    ${SFML_ROOT}/lib
-)
+if(WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_options(AlgoViewer PRIVATE -mconsole -static-libgcc -static -static-libstdc++)
+endif()
 
-target_link_options(AlgoViewer PRIVATE -mconsole -static -static-libgcc -static -static-libstdc++)
-
-target_link_libraries(AlgoViewer PRIVATE
-    sfml-graphics-s
-    sfml-window-s
-    sfml-system-s
-    opengl32
-    freetype
-    winmm
-    gdi32
-    ws2_32
-)
+if(WIN32)
+    message(STATUS "Linking Windows")
+    target_link_libraries(AlgoViewer PRIVATE
+        sfml-graphics
+        sfml-window
+        sfml-system
+        opengl32
+    )
+elseif(UNIX)
+    message(STATUS "Linking Linux")
+    target_link_libraries(AlgoViewer PRIVATE
+        sfml-graphics
+        sfml-window
+        sfml-system
+        GL
+    )
+endif()

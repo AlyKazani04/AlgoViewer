@@ -40,6 +40,7 @@ if(WIN32)
         ${SFML_ROOT}/lib
     )
 elseif(UNIX)
+    # uncomment this v if you have SFML installed on your system
     # find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
 endif()
 
@@ -58,18 +59,27 @@ if(WIN32)
 elseif(UNIX)
     message(STATUS "Linking Linux")
 
-    set(LOCAL_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib")
-
+    # When you have SFML installed on your system
     target_link_libraries(AlgoViewer PRIVATE
-        "${LOCAL_LIB}/libsfml-graphics.so.3.0.2"
-        "${LOCAL_LIB}/libsfml-window.so.3.0.2"
-        "${LOCAL_LIB}/libsfml-system.so.3.0.2"
+        sfml-graphics
+        sfml-window
+        sfml-system
         GL  
     )
+
+    # Used this to link SFML dynamically on Linux without installing it system-wide
+    # You would need symbolic links in a "lib" folder next to the executable for this to work
+    # set(LOCAL_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib")
+    # target_link_libraries(AlgoViewer PRIVATE
+    #     "${LOCAL_LIB}/libsfml-graphics.so.3.0.2"
+    #     "${LOCAL_LIB}/libsfml-window.so.3.0.2"
+    #     "${LOCAL_LIB}/libsfml-system.so.3.0.2"
+    #     GL  
+    # )
     
-    set_target_properties(AlgoViewer PROPERTIES 
-        BUILD_WITH_INSTALL_RPATH TRUE
-        INSTALL_RPATH "$ORIGIN/lib"
-    )
-    target_link_options(AlgoViewer PRIVATE "LINKER:--disable-new-dtags")
+    # set_target_properties(AlgoViewer PROPERTIES 
+    #     BUILD_WITH_INSTALL_RPATH TRUE
+    #     INSTALL_RPATH "$ORIGIN/libs"
+    # )
+    # target_link_options(AlgoViewer PRIVATE "LINKER:--disable-new-dtags")
 endif()

@@ -1,11 +1,18 @@
+# ignore all files
+*
+# except dirs and files with extensions
+!*.*
+!*/
+
 # VS Code files
 .vscode/
 
 # Build files
 build/
 
-# AlgoViewer Release Folder
+# AlgoViewer Release Folders
 AlgoViewer/*
+AlgoViewer_Linux/*
 *.zip
 
 # ImGui Debug files

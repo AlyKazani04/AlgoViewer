@@ -1,20 +1,20 @@
-# 🧩 Contributing Guidelines
+# Contributing Guidelines
 
-Thank you for your interest in contributing to the Sorting Algorithm Visualizer project!
-To keep our workflow clean, efficient, and consistent across the team, please follow the steps below before making any contributions.
+Thank you for your interest in contributing to the AlgoViewer project!
+To keep our workflow clean, efficient, and consistent, please follow the steps below before making any contributions.
 
-## 📦 1. Clone the Repository
+## 1. Clone the Repository
 
 Start by cloning the project to your local workstation:
 
 ```
 git clone https://github.com/AlyKazani04/AlgoViewer.git
-cd <sorting-visualizer-repo>
+cd <AlgoViewer-repo>
 ```
 
 🔹 Note: Do not make changes directly on the main branch.
 
-## 🌱 2. Create a New Branch
+## 2. Create a New Branch
 
 Before you start working on a new feature, bug fix, or improvement, create a new branch from main:
 
@@ -34,7 +34,7 @@ bugfix/fix-visual-glitch
 refactor/improve-ui
 ```
 
-## 🧠 3. Make Your Changes
+## 3. Make Your Changes
 
 Implement your feature or fix.
 Try to keep commits small and meaningful — they should represent a single logical change.
@@ -45,9 +45,9 @@ git commit -m "Add quick sort visualization"
 ```
 
 
-💡 Follow conventional commit messages whenever possible.
+Follow conventional commit messages whenever possible.
 
-## 🔍 4. Keep Your Branch Updated
+## 4. Keep Your Branch Updated
 
 Before creating a pull request, make sure your branch is up to date with main:
 
@@ -58,7 +58,7 @@ git merge origin/main
 
 If there are merge conflicts, resolve them locally before pushing.
 
-## 🚀 5. Push and Create a Pull Request (PR)
+## 5. Push and Create a Pull Request (PR)
 
 When you’re ready to share your work:
 
@@ -81,9 +81,9 @@ Then go to the repository on GitHub and open a Pull Request to merge your branch
 > ⚠️ Do not merge directly into main.
 All changes must go through a PR and be reviewed first.
 
-## 💬 6. Code Reviews
+## 6. Code Reviews
 
-Another team member will review your PR.
+I will review your PR.
 If changes are requested:
 
 Make the updates on your same branch.
@@ -92,7 +92,7 @@ Push again — the PR will automatically update.
 
 We value respectful, constructive feedback and clear communication.
 
-## 🧹 7. After Merging
+## 7. After Merging
 
 Once your PR is approved and merged:
 
@@ -103,7 +103,7 @@ git branch -d feature/<short-description>
 git push origin --delete feature/<short-description>
 ```
 
-## 🧭 Summary
+## Summary
 | Action | Command |
 |:--------|:----------|
 | Clone repo | `git clone <repo-url>` |

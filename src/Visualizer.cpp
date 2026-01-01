@@ -1,13 +1,13 @@
 #include "Visualizer.hpp"
 
-Visualizer::Visualizer(int initsize = DEFAULT_DATASET_SIZE) : m_array(initsize), m_algorithm(nullptr) 
+Visualizer::Visualizer(int initsize = DEFAULT_DATASET_SIZE) : m_array(initsize), m_algorithm(nullptr), m_font("resources/RobotoSlab-Medium.ttf") 
 {
     for(size_t i = 0; i < m_array.size(); i++)
     {
         m_array[i] = i + 1;
     }
 
-    m_stepClock.reset();
+    m_stepClock.reset();    
 }
 
 Visualizer::~Visualizer()
@@ -43,9 +43,8 @@ void Visualizer::update(bool darkFlag)
 
 void Visualizer::draw(sf::RenderWindow& window) 
 {
-    sf::Font font("resources/RobotoSlab-Medium.ttf");
 
-    sf::Text title(font, m_algorithmName, 48);
+    sf::Text title(m_font, m_algorithmName, 48);
 
     title.setFillColor((m_isDark) ? sf::Color(252, 250, 235, 255) : sf::Color(20, 38, 84, 255)); // Dark : Light modes
     title.setOrigin({title.getLocalBounds().size.x / 2.f, title.getLocalBounds().size.y / 2.f});
@@ -67,7 +66,7 @@ void Visualizer::draw(sf::RenderWindow& window)
         window.draw(bar);
     }
 
-    sf::Text elapsedTimeText(font, "Step Duration: " + std::to_string(DEFAULT_STEP_TIME) + " ms\nElapsed Time: " + std::to_string(m_elapsedTime.asSeconds()) + " seconds", 22);
+    sf::Text elapsedTimeText(m_font, "Step Duration: " + std::to_string(DEFAULT_STEP_TIME) + " ms\nElapsed Time: " + std::to_string(m_elapsedTime.asSeconds()) + " seconds", 22);
     elapsedTimeText.setFillColor((m_isDark) ? sf::Color(252, 250, 235, 255) : sf::Color(20, 38, 84, 255)); // Dark : Light modes
     elapsedTimeText.setPosition({10.f, window.getSize().y - elapsedTimeText.getLocalBounds().size.y - 10.f});
 

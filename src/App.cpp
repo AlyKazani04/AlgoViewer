@@ -48,6 +48,14 @@ void Application::run()
             {
                 window.close();
             }
+            if(event->is<sf::Event::Resized>())
+            {
+                auto size = event->getIf<sf::Event::Resized>()->size;
+                sf::View view;
+                view.setSize({ static_cast<float>(size.x), static_cast<float>(size.y) });
+                view.setCenter({ static_cast<float>(size.x) / 2.f, static_cast<float>(size.y) / 2.f });
+                window.setView(view);
+            }
         }
 
         // Update
@@ -61,18 +69,17 @@ void Application::run()
         m_visualizer.draw(window);
         ImGui::SFML::Render(window);
 
-        sf::Texture modeTexture;
+        sf::Sprite modeSprite(m_modeTextureD);
 
         if(m_isDark)
         {
-            modeTexture = m_modeTextureL;
+            modeSprite.setTexture(m_modeTextureL);
         }
         else
         {
-            modeTexture = m_modeTextureD;
+            modeSprite.setTexture(m_modeTextureD);
         }
 
-        sf::Sprite modeSprite(modeTexture);
         modeSprite.setScale({1,1});
 
         sf::Rect<float> modebounds = modeSprite.getLocalBounds();

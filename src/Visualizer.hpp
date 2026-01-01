@@ -15,6 +15,7 @@ class Visualizer
         std::string m_algorithmName;
         std::vector<int> m_array;
         int m_datasetSize;
+        sf::Font m_font;
 
         bool m_isSorting = false;
         bool m_isDark = true;

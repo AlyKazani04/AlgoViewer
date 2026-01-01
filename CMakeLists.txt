@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_compile_options(-fdiagnostics-color=always -g)
 
 set(BUILD_SHARED_LIBS OFF)
-add_definitions(-DSFML_STATIC)
+if(WIN32)
+    add_definitions(-DSFML_STATIC)
+endif()
 
 set(SFML_ROOT "libs/SFML")
 set(IMGUI_ROOT "libs/ImGui")
@@ -38,7 +40,7 @@ if(WIN32)
         ${SFML_ROOT}/lib
     )
 elseif(UNIX)
-    find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
+    # find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
 endif()
 
 if(WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -55,10 +57,19 @@ if(WIN32)
     )
 elseif(UNIX)
     message(STATUS "Linking Linux")
+
+    set(LOCAL_LIB "${CMAKE_CURRENT_SOURCE_DIR}/lib")
+
     target_link_libraries(AlgoViewer PRIVATE
-        sfml-graphics
-        sfml-window
-        sfml-system
-        GL
+        "${LOCAL_LIB}/libsfml-graphics.so.3.0.2"
+        "${LOCAL_LIB}/libsfml-window.so.3.0.2"
+        "${LOCAL_LIB}/libsfml-system.so.3.0.2"
+        GL  
     )
+    
+    set_target_properties(AlgoViewer PROPERTIES 
+        BUILD_WITH_INSTALL_RPATH TRUE
+        INSTALL_RPATH "$ORIGIN/lib"
+    )
+    target_link_options(AlgoViewer PRIVATE "LINKER:--disable-new-dtags")
 endif()
